@@ -29,10 +29,10 @@ class Article
     private $content;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Category;
+    private $category;
 
 
     public function __construct()
@@ -91,6 +91,13 @@ class Article
         if ($this->Category->contains($category)) {
             $this->Category->removeElement($category);
         }
+
+        return $this;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
