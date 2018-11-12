@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,18 @@ class Article
      * @ORM\Column(type="text")
      */
     private $content;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Category;
+
+
+    public function __construct()
+    {
+        $this->Category = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +65,32 @@ class Article
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategory(): Collection
+    {
+        return $this->Category;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->Category->contains($category)) {
+            $this->Category[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->Category->contains($category)) {
+            $this->Category->removeElement($category);
+        }
 
         return $this;
     }
