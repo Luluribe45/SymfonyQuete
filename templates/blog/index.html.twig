@@ -1,4 +1,49 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
+
+{% block title %}Liste articles de blog{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+{% endblock %}
+
 {% block body %}
-    <h1> {{ page }} </h1>
+
+    <h1>Liste des articles par catégories</h1>
+
+    <div class="container">
+        {% for category in categories %}
+            <div class="row my-2">
+                <div class="col bg-secondary text-white">
+                    {{ category.name }}
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col text-info">
+                    <i>Utilisation <strong>en twig</strong> du getArticles() pour récupérer tous les articles
+                        à partir d'une catégorie</i>
+                </div>
+            </div>
+            <div class="row my-2">
+                {% for article in category.articles %} {# Utilisation du getArticles(); #}
+                    <div class="col-12 bg-light mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                {{ article.title }}
+                            </div>
+                            <div class="card-body">
+                                {{ article.content }}
+                            </div>
+                            <div class="card-footer text-info">
+                                <i>Utilisation <strong>en twig</strong> du getCategory() pour récupérer le nom de la
+                                    catégorie à partir de l'article :</i>
+                                <span class="text-dark">{{ article.category.name }} </span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

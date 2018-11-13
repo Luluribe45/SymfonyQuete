@@ -1,28 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lucile
- * Date: 07/11/18
- * Time: 22:45
- */
-
+// src/Controller/BlogController.php
 namespace App\Controller;
 
+use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class BlogController extends AbstractController
 {
 
     /**
-     * @Route("/blog/{page}", name="blog_show", requirements={"page"="[a-z0-9-]+"})
+     * @Route("/blog", name="blog_list")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show($page='Article Sans Titre')
+    public function list()
     {
-        $page = str_replace('-', ' ',$page);
-        $page = ucwords($page);
-        return $this->render('blog/index.html.twig', [
-            'page' => $page
-        ]);
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $categories = $repository->findAll();
+
+        // Les méthodes getArticles() et getCategory() sont utilisées dans la vue Twig.
+
+        return $this->render('blog/index.html.twig', ['categories' => $categories]);
     }
 }
