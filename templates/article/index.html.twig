@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for category in tableau %}
+        <h2>{{ category.owner.name }}</h2>
+        {% for article in category %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" >{{ article.title }}</li>
+            </ul>
+        {% endfor %}
+
+    {% endfor %}
+
+{% endblock %}
