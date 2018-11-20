@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,15 +28,9 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
-
-
-    public function __construct()
-    {
-        $this->Category = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -69,36 +61,14 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
+    public function getCategory()
     {
-        return $this->Category;
+        return $this->category;
     }
 
-    public function addCategory(Category $category): self
-    {
-        if (!$this->Category->contains($category)) {
-            $this->Category[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->Category->contains($category)) {
-            $this->Category->removeElement($category);
-        }
-
-        return $this;
-    }
-
-    public function setCategory(?Category $category): self
+    public function setCategory($category):self
     {
         $this->category = $category;
-
-        return $this;
     }
+    
 }

@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,21 +22,16 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category", orphanRemoval=true)
      */
     private $articles;
 
-    public function __construct()
-    {
-        $this->articles = new ArrayCollection();
-    }
-
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -50,34 +43,14 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticles(): Collection
+    public function getArticles()
     {
         return $this->articles;
     }
 
-    public function addArticle(Article $article): self
+    public function setArticles($articles): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->setCategory($this);
-        }
-
-        return $this;
+        $this->articles = $articles;
     }
 
-    public function removeArticle(Article $article): self
-    {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
-            // set the owning side to null (unless already changed)
-            if ($article->getCategory() === $this) {
-                $article->setCategory(null);
-            }
-        }
-
-        return $this;
-    }
 }
