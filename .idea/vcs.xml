@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/SymfonyQuete" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/SymfonyQuete-symfony4_partie_5" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/SymfonyQuete-symfony4_partie_7" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/blog" vcs="Git" />
   </component>
 </project>

@@ -52,5 +52,4 @@ class Category
     {
         $this->articles = $articles;
     }
-
 }
