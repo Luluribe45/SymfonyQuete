@@ -24,18 +24,13 @@ class Tag
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", inversedBy="tags")
      */
-    private $title;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="tags")
-     */
-    private $categories;
+    private $articles;
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -55,39 +50,27 @@ class Tag
         return $this;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
     /**
-     * @return Collection|Category[]
+     * @return Collection|Article[]
      */
-    public function getCategories(): Collection
+    public function getArticles(): Collection
     {
-        return $this->categories;
+        return $this->articles;
     }
 
-    public function addCategory(Category $category): self
+    public function addArticle(Article $article): self
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
         }
 
         return $this;
     }
 
-    public function removeCategory(Category $category): self
+    public function removeArticle(Article $article): self
     {
-        if ($this->categories->contains($category)) {
-            $this->categories->removeElement($category);
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
         }
 
         return $this;
