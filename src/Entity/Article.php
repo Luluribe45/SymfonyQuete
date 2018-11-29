@@ -105,6 +105,8 @@ class Article
     public function setCategory($category):self
     {
         $this->category = $category;
+
+        return $this;
     }
 
     /**

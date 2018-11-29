@@ -51,5 +51,7 @@ class Category
     public function setArticles($articles): self
     {
         $this->articles = $articles;
+
+        return $this;
     }
 }
