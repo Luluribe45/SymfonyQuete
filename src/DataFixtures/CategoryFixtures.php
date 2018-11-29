@@ -10,11 +10,11 @@ class CategoryFixtures extends Fixture
 {
 
     const CATEGORIES =[
-        1 => 'PHP',
-        2 => 'Java',
-        3 => 'Javascript',
-        4 => 'Ruby',
-        5 => 'DevOps'
+        'PHP',
+        'Java',
+        'Javascript',
+        'Ruby',
+        'DevOps'
     ];
 
     public function load(ObjectManager $manager)
@@ -22,8 +22,8 @@ class CategoryFixtures extends Fixture
         foreach (self::CATEGORIES as $key => $categoryName) {
             $category = new Category();
             $category->setName($categoryName);
-            $this->addReference('categorie_' . $key, $category);
             $manager->persist($category);
+            $this->addReference('categorie_' . $key, $category);
         }
         $manager->flush();
     }
